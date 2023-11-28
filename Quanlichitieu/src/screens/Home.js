@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -13,14 +14,12 @@ var url = "https://65557a0784b36e3a431dc70d.mockapi.io/chitieu";
 
 const Home = () => {
   const [state, setState] = useState();
+  const navigation = useNavigation();
 
-  const fetchData = () => {
-    fetch(url)
+  const fetchData = async () => {
+    await fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
         setState(data);
       });
   };
@@ -55,7 +54,17 @@ const Home = () => {
                       style={styles.imgEdit}
                     />
                   </Pressable>
-                  <Pressable>
+                  <Pressable
+                    onPress={() => {
+                      var link = url + "/" + item.id;
+                      fetch(link, {
+                        method: "DELETE",
+                      })
+                      .then((data)=>{
+                        fetchData()
+                      })
+                    }}
+                  >
                     <Image
                       source={require("../../assets/delete-button.png")}
                       style={styles.imgDelete}
@@ -67,7 +76,11 @@ const Home = () => {
           )}
         />
         <View style={styles.view4}>
-          <Pressable>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("add");
+            }}
+          >
             <Image
               source={require("../../assets/add-file.png")}
               style={styles.imgAdd}
@@ -113,9 +126,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  view4:{
-    alignItems:'center',
-    justifyContent:'center'
+  view4: {
+    alignItems: "center",
+    justifyContent: "center ",
+    margin: 10,
   },
   imguser: {
     height: 80,
