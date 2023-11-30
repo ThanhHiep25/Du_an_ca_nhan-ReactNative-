@@ -41,7 +41,7 @@ const Add = () => {
           placeholder="Ten nguoi dung"
         />
         <TextInput
-          style={styles.textIn}
+          style={styles.textIn} 
           value={nameChiTieu}
           onChangeText={(text) => {
             setNameChiTieu(text);
