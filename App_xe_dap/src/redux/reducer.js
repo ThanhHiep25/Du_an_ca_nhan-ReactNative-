@@ -10,10 +10,14 @@ const rootReducer = (state = initialState, action)=>{
             count: state.count + 1
           };
         case 'DECREMENT':
-          return {
-            ...state,
-            count: state.count - 1
-          };
+          if (state.count > 0) {
+            return {
+              ...state,
+              count: state.count - 1,
+            };
+          } else {
+            return state;
+          }
         default:
           return state;
       }

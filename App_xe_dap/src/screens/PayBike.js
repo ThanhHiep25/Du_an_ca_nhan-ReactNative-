@@ -3,17 +3,9 @@ import React, { useEffect } from "react";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { Provider } from "react-redux";
 import store from "../redux/store";
-import  Counter  from "../redux/couter";
+import Counter from "../redux/couter";
 import Count from "../redux/count2";
 
-import { Connect } from "react-redux";
-import { inc, dec } from "../redux/actions";
-
-const mapStateToProps = (state) => ({ count: state.count });
-const mapDispatchToProps = (dispatch) => ({
-  incre: () => dispatch(inc()),
-  decre: () => dispatch(dec()),
-});
 
 const Pay = () => {
   const route = useRoute();
@@ -25,12 +17,11 @@ const Pay = () => {
 
   return (
     <View style={styles.container}>
-       <Provider store={store}>
+      <Provider store={store}>
         <View>
-
           <Count/>
         </View>
-        </Provider>
+      </Provider>
       <View style={styles.view}>
         <Pressable style={styles.Pre}>
           <Image source={item.img} style={styles.img}></Image>
@@ -40,19 +31,14 @@ const Pay = () => {
       <View style={styles.view1}>
         <Text style={styles.text}>{item.name}</Text>
       </View>
-    
+
       <View style={styles.view2}>
         <Text style={styles.text1}>
           {item.sale} OFF | {item.price}
         </Text>
         <Text style={styles.text2}>{item.pricesale}</Text>
       </View>
-      <Provider store={store}>
-        <View>
 
-          <Counter />
-        </View>
-      </Provider>
       <View style={styles.view3}>
         <Text style={styles.text3}>Description</Text>
         <Text style={styles.text4}>
@@ -62,11 +48,11 @@ const Pay = () => {
       </View>
 
       <View style={styles.view4}>
-        <Image
-          source={require("../../assets/IMG/icons_heart.png")}
-          style={styles.img1}
-        />
-
+        <Provider store={store}>
+          <View>
+            <Counter />
+          </View>
+        </Provider>
         <Pressable style={styles.Pre1}>
           <Text style={styles.textPre}>ADD TO CARD</Text>
         </Pressable>
@@ -97,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginBottom : 40
+    marginBottom: 40,
   },
   img: {
     height: 340,

@@ -4,6 +4,10 @@ import bikeData from "../../dataBike";
 import { Pressable } from "react-native";
 import { FlatList } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+import Counter from "../redux/couter";
+import Count from "../redux/count2";
 
 export const BikeList = ({ navigation }) => {
   const route = useRoute();
@@ -11,9 +15,9 @@ export const BikeList = ({ navigation }) => {
   const [bike, setBike] = useState(bikeData);
   const [search, setSearch] = useState();
   const [re, setRe] = useState([]);
-  console.log('====================================');
+  console.log("====================================");
   console.log(re);
-  console.log('====================================');
+  console.log("====================================");
 
   return (
     <View style={styles.container}>
@@ -30,12 +34,15 @@ export const BikeList = ({ navigation }) => {
           }}
           placeholder="Search"
         />
-        <Pressable style={styles.preserch} onPress={()=>{
-          const sea = bike.filter((Sea)=> Sea.des == search)
-          if (sea) {
-            setRe(sea)
-          }
-        }}>
+        <Pressable
+          style={styles.preserch}
+          onPress={() => {
+            const sea = bike.filter((Sea) => Sea.des == search);
+            if (sea) {
+              setRe(sea);
+            }
+          }}
+        >
           <Text style={styles.textsea}>Tìm</Text>
         </Pressable>
       </View>
@@ -100,25 +107,33 @@ export const BikeList = ({ navigation }) => {
         </Pressable>
       </View>
 
+      <View>
+        <Provider store={store}>
+          <Count/>
+        </Provider>
+      </View>
+
       <View style={styles.view2}>
         <FlatList
           data={bike}
           numColumns={2}
           renderItem={({ item }) => (
-            <Pressable
-              style={styles.Pre1}
-              onPress={() => {
-                navigation.navigate("Pay", item);
-              }}
-            >
-              <Image
-                source={require("../../assets/IMG/icons_heart.png")}
-                style={styles.img}
-              />
+            <View style={styles.Pre1}>
+              <Provider store={store}>
+                <Counter></Counter>
+              </Provider>
+              
               <Image source={item.img} style={styles.img1} />
-              <Text style={styles.text2}>{item.name}</Text>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate("Pay", item);
+                }}
+              >
+                <Text style={styles.text2}>{item.name}</Text>
+                
+              </Pressable>
               <Text style={styles.text3}>{item.price}</Text>
-            </Pressable>
+            </View>
           )}
           keyExtractor={(item) => item.id}
         />
@@ -210,8 +225,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 700,
   },
-  PreSe:{
-    height:50,
+  PreSe: {
+    height: 50,
     width: 100,
-  }
+  },
 });

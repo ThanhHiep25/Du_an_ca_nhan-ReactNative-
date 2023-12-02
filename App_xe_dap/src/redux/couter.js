@@ -1,15 +1,39 @@
-import React from "react";
-import { View, Text, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Button, Image, Pressable, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { inc, dec } from "./actions";
 import Count from "./count2";
 
-
-const Counter = ({count, incre, decre }) => {
+const Counter = ({ count, incre, decre }) => {
+  const [checked, setChecked] = useState([]);
+  const hanldCheck = (id) => {
+    if (!checked.includes(id)) {
+      setChecked([...checked, id]);
+      incre()
+    } else {
+      setChecked(checked.filter((checkedID) => checkedID !== id));
+      decre()
+    }
+  };
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Button title="Increment" onPress={incre} />
-      <Button title="Decrement" onPress={decre} />
+    <View>
+      <Pressable
+        onPress={() => {
+          hanldCheck();
+        }}
+      >
+        {checked.includes() ? (
+          <Image
+            source={require("../../assets/IMG/heart-red.png")}
+            style={styles.imgHeart}
+          />
+        ) : (
+          <Image
+            source={require("../../assets/IMG/heart.png")}
+            style={styles.imgHeart}
+          />
+        )}
+      </Pressable>
     </View>
   );
 };
@@ -19,4 +43,12 @@ const mapDispatchToProps = (dispatch) => ({
   decre: () => dispatch(dec()),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+const styles = StyleSheet.create({
+  imgHeart: {
+    width: 50,
+    height: 50,
+    resizeMode: "contain",
+  },
+});
