@@ -15,7 +15,7 @@ const rootReducer = (state = initialState, action) => {
     case "todoList/addTodo":
       return {
         ...state,
-        todoList: [...state.todoList, { id: 3, name: "Play Game" }],
+        todoList: [...state.todoList, action.payload],
       };
 
     default:
