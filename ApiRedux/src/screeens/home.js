@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Pressable,
   Modal,
+  TextInput,
 } from "react-native";
 import ReactPlayer from "react-player/youtube";
 import dataYtb from "../../data";
@@ -65,6 +66,10 @@ const Home = () => {
             style={styles.imgLogo}
           />
         </Pressable>
+      </View>
+
+      <View style={styles.viewSearch}>
+        <TextInput style={styles.textInSearch} placeholder="Search..." />
       </View>
 
       <ScrollView style={styles.viewFlat}>
@@ -152,7 +157,7 @@ const Home = () => {
           <Text style={styles.textModal}>Nguyen Hiep</Text>
           <Text style={styles.textModal1}>hiepnguyen.....@gmail.com</Text>
         </View>
-        <Pressable style={styles.PreModal} onPress={()=> setModal(!modal)}>
+        <Pressable style={styles.PreModal} onPress={() => setModal(!modal)}>
           <Text style={styles.textPreModal}>Đóng</Text>
         </Pressable>
       </Modal>
@@ -199,6 +204,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
   },
+  viewSearch: {
+    margin: 20,
+    flexDirection: "row",
+  },
   textBar: {
     fontSize: 30,
     fontWeight: 700,
@@ -233,10 +242,16 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
   },
-  textPreModal:{
-    color:'#ffff',
+  textPreModal: {
+    color: "#ffff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+  },
+  textInSearch:{
+    padding: 10,
+    backgroundColor:'#b9b9b9',
+    borderRadius: 20,
+    
   },
   Pre: {
     padding: 5,
